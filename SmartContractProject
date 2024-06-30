@@ -1,0 +1,25 @@
+ // SPDX-License-Identifier: MIT
+  pragma solidity ^0.8.0;
+
+  contract RequireAssertRevertExample {
+      uint256 public value;
+
+ // Function to set the value
+   function setValue(uint256 _newValue) public {
+   value = _newValue;
+     }
+ // Function to demonstrate require statement
+    function requireStatement(uint256 _requiredValue) public view {
+     require(value >= _requiredValue, "Value must be greater than or equal to the required value");
+    }
+
+ // Function to demonstrate assert statement
+     function assertStatement() public view {
+     assert(value != 0);
+        }
+ // Function to demonstrate revert statement
+     function revertStatement() public pure {
+     revert("This function always reverts");
+                       }
+    }
+
