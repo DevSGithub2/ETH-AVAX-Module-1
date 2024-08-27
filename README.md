@@ -36,7 +36,7 @@ pragma solidity ^0.8.0;
 contract SimpleContract {
     uint256 public value;
 
-    // Function that uses require() to check a condition
+    // Function to set a value that uses require() to check validity
     function setValue(uint256 _value) public {
         require(_value > 0, "Value must be greater than zero");
         value = _value;
@@ -44,18 +44,22 @@ contract SimpleContract {
 
     // Function that uses assert() to ensure internal consistency
     function doubleValue() public view returns (uint256) {
-        assert(value > 0);
+        assert(value > 0); // Ensure that value has been set
         return value * 2;
     }
 
-    // Function that uses revert() to stop execution under a condition
-    function resetValue() public {
-        if (value == 0) {
-            revert("Value is already zero");
+    // Function to reset value, with a meaningful use of revert()
+    function resetValue(uint256 _newValue) public {
+        require(_newValue >= 0, "New value must be non-negative");
+
+        if (_newValue == value) {
+            revert("New value cannot be the same as the current value");
         }
-        value = 0;
+
+        value = _newValue;
     }
 }
+
 ```
 
 ## Help
