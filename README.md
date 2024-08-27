@@ -1,10 +1,18 @@
 # Smart Token Project
 
-This project demonstrates the implementation of a smart token using Solidity on Remix IDE. It showcases the functionality of require, assert, and revert statements within a smart contract, providing a practical example of error handling and validation in blockchain development.
+This project demonstrates the implementation of a smart token using Solidity on Remix IDE. It showcases the functionality of require, assert, and revert statements within a smart contract. It is a simple example designed to show how these statements can be used to enforce conditions, ensure internal consistency, and manage execution flow in smart contracts
 
 ## Description
 
 This project implements a smart token using Solidity on the Remix IDE platform. It includes functions to set a value and demonstrates the usage of require, assert, and revert statements within a smart contract.
+
+The SimpleContract includes three functions:
+
+1. setValue(uint256 _value): Sets value if _value is greater than zero.
+
+2. doubleValue(): Returns double the value, ensuring value is positive.
+
+3. resetValue(): Resets value to zero, reverting if already zero.
 
 ## Getting Started
 
@@ -20,33 +28,34 @@ Follow these steps to run the program:
 
 * Compile the smart contract.
 * Deploy the smart contract to a local or test network.
-* Use Remix IDE's interface to call the setValue, requireStatement, assertStatement, and revertStatement functions.
-
+* Use Remix IDE's interface to call the setValue, doubleValue, and resetValue functions.
 ```
 // SPDX-License-Identifier: MIT
-  pragma solidity ^0.8.0;
+pragma solidity ^0.8.0;
 
-  contract RequireAssertRevertExample {
-      uint256 public value;
+contract SimpleContract {
+    uint256 public value;
 
- // Function to set the value
-   function setValue(uint256 _newValue) public {
-   value = _newValue;
-     }
- // Function to demonstrate require statement
-    function requireStatement(uint256 _requiredValue) public view {
-     require(value >= _requiredValue, "Value must be greater than or equal to the required value");
+    // Function that uses require() to check a condition
+    function setValue(uint256 _value) public {
+        require(_value > 0, "Value must be greater than zero");
+        value = _value;
     }
 
- // Function to demonstrate assert statement
-     function assertStatement() public view {
-     assert(value != 0);
+    // Function that uses assert() to ensure internal consistency
+    function doubleValue() public view returns (uint256) {
+        assert(value > 0);
+        return value * 2;
+    }
+
+    // Function that uses revert() to stop execution under a condition
+    function resetValue() public {
+        if (value == 0) {
+            revert("Value is already zero");
         }
- // Function to demonstrate revert statement
-     function revertStatement() public pure {
-     revert("This function always reverts");
-                       }
+        value = 0;
     }
+}
 ```
 
 ## Help
