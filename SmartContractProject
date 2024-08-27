@@ -1,25 +1,26 @@
- // SPDX-License-Identifier: MIT
-  pragma solidity ^0.8.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-  contract RequireAssertRevertExample {
-      uint256 public value;
+contract SimpleContract {
+    uint256 public value;
 
- // Function to set the value
-   function setValue(uint256 _newValue) public {
-   value = _newValue;
-     }
- // Function to demonstrate require statement
-    function requireStatement(uint256 _requiredValue) public view {
-     require(value >= _requiredValue, "Value must be greater than or equal to the required value");
+    // Function that uses require() to check a condition
+    function setValue(uint256 _value) public {
+        require(_value > 0, "Value must be greater than zero");
+        value = _value;
     }
 
- // Function to demonstrate assert statement
-     function assertStatement() public view {
-     assert(value != 0);
+    // Function that uses assert() to ensure internal consistency
+    function doubleValue() public view returns (uint256) {
+        assert(value > 0);
+        return value * 2;
+    }
+
+    // Function that uses revert() to stop execution under a condition
+    function resetValue() public {
+        if (value == 0) {
+            revert("Value is already zero");
         }
- // Function to demonstrate revert statement
-     function revertStatement() public pure {
-     revert("This function always reverts");
-                       }
+        value = 0;
     }
-
+}
